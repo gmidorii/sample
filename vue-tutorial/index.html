@@ -33,6 +33,11 @@
       <div>{{mess}}</div>
       <input v-model="mess">
     </div>
+    <div id="app-7">
+      <ol>
+        <todo-item v-for="item in glist" v-bind:todo="item"></todo-item>
+      </ol>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
@@ -79,6 +84,20 @@
       el: '#app-6',
       data: {
         mess: 'Hoge!!'
+      }
+    })
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+    const app7 = new Vue({
+      el: '#app-7',
+      data: {
+        glist : [
+          {id: 0, text: 'Veg'},
+          {id: 1, text: 'Age'},
+          {id: 2, text: 'Bge'}
+        ]
       }
     })
   </script>
