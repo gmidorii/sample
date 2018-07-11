@@ -6,22 +6,11 @@
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-  <script src="static/wasm_exec.js"></script>
 </head>
 <body>
   <h1>Hello Wasm</h1>
-  <input id="wasm" type="button" value="load wasm">
-  <input id="wasmExec" type="button" value="exec wasm">
-  <script>
-    const $ = document
-    const go = new Go()
-    $.addEventListener('click', async () => {
-      const resp = await fetch('wasm')
-      const byte = await resp.arrayBuffer()
-      const wasm = await WebAssembly.instantiate(byte, go.importObject)
-
-      await go.run(wasm.instance)
-    })
-  </script>
+  <input id="loadWasm" type="button" value="load wasm">
+  <input id="execWasm" type="button" value="exec wasm">
+  <script type="module" src="static/main.js"></script>
 </body>
 </html>
