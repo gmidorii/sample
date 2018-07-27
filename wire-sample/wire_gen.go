@@ -11,7 +11,7 @@ import (
 
 // Injectors from inject.go:
 
-func setUp(ctx context.Context, n string) (Foo, error) {
+func setUp(ctx context.Context, n fooName, z string) (Foo, error) {
 	foo := ProviderFoo(n)
 	return foo, nil
 }

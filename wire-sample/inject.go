@@ -8,7 +8,7 @@ import (
 	wire "github.com/google/go-cloud/wire"
 )
 
-func setUp(ctx context.Context, n string) (Foo, error) {
+func setUp(ctx context.Context, n fooName, z string) (Foo, error) {
 	wire.Build(SuperSet)
 	return Foo{}, nil
 }

@@ -9,11 +9,13 @@ import (
 	wire "github.com/google/go-cloud/wire"
 )
 
+type fooName string
+
 var SuperSet = wire.NewSet(ProviderFoo)
 
-func ProviderFoo(name string) Foo {
+func ProviderFoo(name fooName) Foo {
 	return Foo{
-		Name: name,
+		Name: string(name),
 	}
 }
 
@@ -21,7 +23,7 @@ func main() {
 	n := flag.String("n", "foo", "foo name")
 	flag.Parse()
 
-	foo, err := setUp(context.Background(), *n)
+	foo, err := setUp(context.Background(), fooName(*n), "zannenn")
 	if err != nil {
 		log.Fatalln(err)
 	}
