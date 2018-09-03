@@ -3,16 +3,22 @@ import * as React from "react"
 export interface BoardProps {
 }
 export interface BoardState {
-  squares: number[]
+  squares: string[]
 }
 
 
-class Board extends React.Component<BoardProps, BoardState> {
+export class Board extends React.Component<BoardProps, BoardState> {
   constructor(props: BoardProps) {
     super(props)
     this.state = {
-      squares: new Array<number>(9),
+      squares: new Array<string>(9),
     }
+  }
+
+  handleClick(i: number) {
+    const squares = this.state.squares.slice()
+    squares[i] = 'X'
+    this.setState({squares: squares})
   }
 
   renderSquare(i: number) {
@@ -51,25 +57,15 @@ class Board extends React.Component<BoardProps, BoardState> {
 }
 
 export interface SquareProps {
-  value: number
-}
-
-export interface SquareState {
   value: string
+  onClick(): void
 }
 
-class Square extends React.Component<SquareProps, SquareState> {
-  constructor(props: SquareProps) {
-    super(props)
-    this.state = {
-      value: null,
-    }
-  }
-
+export class Square extends React.Component<SquareProps, {}> {
   render() {
     return (
-      <button className="square" onClick={() => this.setState({value: 'X'})}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     )
   }

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { ShopList } from './components/ShopList';
+import { Board } from './components/Board';
 
 ReactDOM.render(
-  <ShopList name='hoge'/>,
-  document.getElementById('entry')
+  <Board/>,
+  document.getElementById('root')
 )
