@@ -1,56 +1,28 @@
 import * as React from "react"
 
 export interface BoardProps {
+  squares: string[]
+  onClick(i: number): void
 }
+
 export interface BoardState {
   squares: string[]
   xIsNext: boolean
 }
 
-
 export class Board extends React.Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
-    super(props)
-    this.state = {
-      squares: new Array<string>(9),
-      xIsNext: false,
-    }
-  }
-
-  handleClick(i: number) {
-    const squares = this.state.squares.slice()
-    if (calucurateWinner(squares) || squares[i]) {
-      return
-    }
-    squares[i] = this.nextFill(this.state.xIsNext)
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    })
-  }
 
   renderSquare(i: number) {
     return (
       <Square 
-      value={this.state.squares[i]}
-      onClick={() => this.handleClick(i)}
+      value={this.props.squares[i]}
+      onClick={() => this.props.onClick(i)}
       />
     )
   }
 
-  nextFill(isNext: boolean) : string {
-    return isNext ? 'X' : 'O'
-  }
 
   render() {
-    const winner = calucurateWinner(this.state.squares)
-    let status: string
-    if (winner) {
-      status = `Winner: ${winner}`
-    } else {
-      status = `Next player: ${this.nextFill(this.state.xIsNext)}`
-    }
-
     return (
       <div>
         <div className="status">{status}</div>
@@ -87,7 +59,7 @@ const Square = (props: SquareProps) => {
   )
 }
 
-const calucurateWinner = (squares: string[]) : string => {
+export const calucurateWinner = (squares: string[]) : string => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -105,4 +77,8 @@ const calucurateWinner = (squares: string[]) : string => {
     }
   }
   return null
+}
+
+export const nextFill = (isNext: boolean) : string => {
+    return isNext ? 'X' : 'O'
 }
