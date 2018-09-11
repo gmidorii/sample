@@ -3,6 +3,7 @@ import * as React from "react"
 export interface BoardProps {
   squares: string[]
   onClick(i: number): void
+  nowPushed: number
 }
 
 export interface BoardState {
@@ -13,10 +14,20 @@ export interface BoardState {
 export class Board extends React.Component<BoardProps, BoardState> {
 
   renderSquare(i: number) {
+    if (this.props.nowPushed === i) {
+      return (
+        <Square 
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+        nowPushed={true}
+        />
+      )
+    }
     return (
       <Square 
       value={this.props.squares[i]}
       onClick={() => this.props.onClick(i)}
+      nowPushed={false}
       />
     )
   }
@@ -48,12 +59,20 @@ export class Board extends React.Component<BoardProps, BoardState> {
 
 export interface SquareProps {
   value: string
-  onClick(): void
+  onClick(i: string): void
+  nowPushed: boolean
 }
 
 const Square = (props: SquareProps) => {
+  if (props.nowPushed) {
+    return (
+      <button className="square pushed-square" onClick={() => props.onClick(props.value)}>
+        {props.value}
+      </button>
+    )
+  }
   return (
-    <button className="square" onClick={() => props.onClick()}>
+    <button className="square" onClick={() => props.onClick(props.value)}>
       {props.value}
     </button>
   )

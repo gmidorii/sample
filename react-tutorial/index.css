@@ -44,3 +44,7 @@ body {
 .game-info {
   margin-left: 20px;
 }
+
+.pushed-square {
+  background: #FFFF99
+}
