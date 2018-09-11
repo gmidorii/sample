@@ -11,6 +11,7 @@ export interface GameState {
 }
 export interface Squares {
   squares: string[]
+  nowPushed: number
 }
 
 export class Game extends React.Component<GameProps, GameState> {
@@ -18,7 +19,8 @@ export class Game extends React.Component<GameProps, GameState> {
     super(props)
     this.state = {
       history: [{
-          squares: Array(9).fill(null)
+          squares: Array(9).fill(null),
+          nowPushed: -1
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -37,6 +39,7 @@ export class Game extends React.Component<GameProps, GameState> {
     this.setState({
       history: history.concat([{
         squares: squares,
+        nowPushed: i
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -79,7 +82,7 @@ export class Game extends React.Component<GameProps, GameState> {
           <Board
             squares={current.squares}
             onClick={(i: number) => this.handleClick(i)}
-            nowPushed={this.state.nowPushed}
+            nowPushed={current.nowPushed}
           />
         </div>
         <div className="game-info">
