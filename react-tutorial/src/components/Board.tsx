@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 
 export interface BoardProps {
   squares: string[]
@@ -12,46 +12,42 @@ export interface BoardState {
 }
 
 export class Board extends React.Component<BoardProps, BoardState> {
-
   renderSquare(i: number) {
     if (this.props.nowPushed === i) {
       return (
-        <Square 
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        nowPushed={true}
+        <Square
+          key={i}
+          value={this.props.squares[i]}
+          onClick={() => this.props.onClick(i)}
+          nowPushed={true}
         />
       )
     }
     return (
-      <Square 
-      value={this.props.squares[i]}
-      onClick={() => this.props.onClick(i)}
-      nowPushed={false}
+      <Square
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
+        nowPushed={false}
       />
     )
   }
 
-
   render() {
+    const list: JSX.Element[] = []
+    for (let i = 0; i < 3; i++) {
+      const x = i * 3
+      list.push(
+        <div className="board-row">
+          {this.renderSquare(x + 0)}
+          {this.renderSquare(x + 1)}
+          {this.renderSquare(x + 2)}
+        </div>
+      )
+    }
     return (
       <div>
         <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {list}
       </div>
     )
   }
@@ -66,7 +62,10 @@ export interface SquareProps {
 const Square = (props: SquareProps) => {
   if (props.nowPushed) {
     return (
-      <button className="square pushed-square" onClick={() => props.onClick(props.value)}>
+      <button
+        className="square pushed-square"
+        onClick={() => props.onClick(props.value)}
+      >
         {props.value}
       </button>
     )
@@ -78,7 +77,7 @@ const Square = (props: SquareProps) => {
   )
 }
 
-export const calucurateWinner = (squares: string[]) : string => {
+export const calucurateWinner = (squares: string[]): string => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -87,7 +86,7 @@ export const calucurateWinner = (squares: string[]) : string => {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6],
+    [2, 4, 6]
   ]
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
@@ -98,6 +97,6 @@ export const calucurateWinner = (squares: string[]) : string => {
   return null
 }
 
-export const nextFill = (isNext: boolean) : string => {
-    return isNext ? 'X' : 'O'
+export const nextFill = (isNext: boolean): string => {
+  return isNext ? 'X' : 'O'
 }

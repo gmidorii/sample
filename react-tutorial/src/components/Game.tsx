@@ -1,8 +1,7 @@
-import * as React from "react"
-import { Board, calucurateWinner, nextFill } from "./Board";
+import * as React from 'react'
+import { Board, calucurateWinner, nextFill } from './Board'
 
-export interface GameProps {
-}
+export interface GameProps {}
 export interface GameState {
   history: Squares[]
   stepNumber: number
@@ -18,13 +17,15 @@ export class Game extends React.Component<GameProps, GameState> {
   constructor(props: GameProps) {
     super(props)
     this.state = {
-      history: [{
+      history: [
+        {
           squares: Array(9).fill(null),
           nowPushed: -1
-      }],
+        }
+      ],
       stepNumber: 0,
       xIsNext: true,
-      nowPushed: -1,
+      nowPushed: -1
     }
   }
 
@@ -37,20 +38,22 @@ export class Game extends React.Component<GameProps, GameState> {
     }
     squares[i] = nextFill(this.state.xIsNext)
     this.setState({
-      history: history.concat([{
-        squares: squares,
-        nowPushed: i
-      }]),
+      history: history.concat([
+        {
+          squares: squares,
+          nowPushed: i
+        }
+      ]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      nowPushed: i,
+      nowPushed: i
     })
   }
 
   jumpTo(step: number) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0,
+      xIsNext: step % 2 === 0
     })
   }
 
@@ -60,14 +63,12 @@ export class Game extends React.Component<GameProps, GameState> {
     const winner = calucurateWinner(current.squares)
 
     const moves = history.map((step: Squares, move: number) => {
-      const desc = move ?
-        `Go to move #${move}`:
-        'Go to game start'
-        return (
-          <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>
-          </li>
-        )
+      const desc = move ? `Go to move #${move}` : 'Go to game start'
+      return (
+        <li key={move}>
+          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        </li>
+      )
     })
 
     let status: string
