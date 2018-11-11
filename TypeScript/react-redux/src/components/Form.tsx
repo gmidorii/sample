@@ -1,14 +1,38 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { Actions } from '../actions/Form'
+import { RootState } from '..'
 
-interface FormProps {}
+interface FormProps {
+  text: string
+  onChange: (text: string) => void
+}
 
 const Form: React.SFC<FormProps> = props => (
   <div>
-    <form>
-      <input type="text"></input>
-      <button type="submit">button</button>
-    </form>
+    <input
+      type="text"
+      value={props.text}
+      onChange={e => props.onChange(e.currentTarget.value)}
+    />
+    <button type="submit">button</button>
   </div>
 )
 
-export default Form
+const mapStateToProps = (state: RootState) => ({
+  text: state.form.text
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => {
+  return {
+    onChange: (text: string) => {
+      dispatch({ type: 'INPUT', text: text })
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Form)
