@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "build": "webpack",
+    "build-auto": "webpack --progress --watch",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@types/react": "^16.7.2",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-redux": "^6.0.9",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.1.6"
+  }
+}
