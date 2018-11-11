@@ -9,10 +9,6 @@ export interface RootState {
   form: form.State
 }
 
-export interface FormState {
-  text: string
-}
-
 const reducer = combineReducers({
   form: form.form
 })
