@@ -16,5 +16,10 @@ export default new Router({
       name: 'about',
       component: () => import('./views/About.vue'),
     },
+    {
+      path: '/form',
+      name: 'form',
+      component: () => import('./views/Form.vue'),
+    },
   ],
 });
